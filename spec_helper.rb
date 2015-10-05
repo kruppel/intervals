@@ -2,8 +2,10 @@ class Program
   attr_reader :language, :path
 
   SUPPORTED_LANGUAGES = {
+    'go'   => 'Go',
     'java' => 'Java',
     'js'   => 'JavaScript',
+    'py'   => 'Python',
     'rb'   => 'Ruby',
     'rs'   => 'Rust'
   }.freeze
@@ -27,6 +29,20 @@ class Program
   end
 
   class Java < StaticProgram
+    def compile
+      Dir.chdir(path) do
+        `javac main.java`
+      end
+    end
+
+    def run(*args)
+      Dir.chdir(path) do
+        `./main #{args.join(' ')}`.strip
+      end
+    end
+  end
+
+  class Go < StaticProgram
     def compile
     end
   end
