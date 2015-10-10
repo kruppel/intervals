@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const args = process.argv.slice(2);
+let index = args.length - 1;
+
+while (index > 0) {
+  let random = Math.floor(Math.random() * index);
+  let temp = args[index];
+
+  args[index] = args[random];
+  args[random] = temp;
+
+  index--;
+}
+
+console.log(args.join(' '));

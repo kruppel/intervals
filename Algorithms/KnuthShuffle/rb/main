@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+args = ARGV.dup
+
+args.reverse_each.with_index do |arg, index|
+  rand_index = rand(index)
+  args[index], args[rand_index] = args[rand_index], arg
+end
+
+puts args.join(' ')
