@@ -37,7 +37,7 @@ class Program
 
     def run(*args)
       Dir.chdir(path) do
-        `./main #{args.join(' ')}`.strip
+        `java main #{args.join(' ')}`.strip
       end
     end
   end
@@ -55,7 +55,11 @@ class Program
 
   class << self
     def for_language(language, path)
-      (const_get(SUPPORTED_LANGUAGES[language]) || self).new(path)
+      begin
+        const_get(SUPPORTED_LANGUAGES[language]).new(path)
+      rescue
+        new(path)
+      end
     end
   end
 end
@@ -67,9 +71,9 @@ def each_language(&block)
   end
 
   (subdirs & Program::SUPPORTED_LANGUAGES.keys).each do |language|
-    let(:program) { Program.for_language(language, "#{dirname}/#{language}") }
-
     context "#{language}" do
+      let(:program) { Program.for_language(language, "#{dirname}/#{language}") }
+
       class_eval(&block)
     end
   end
