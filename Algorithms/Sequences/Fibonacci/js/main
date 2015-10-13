@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+'use strict';
+
+let arg = parseInt(process.argv[2], 10) + 1;
+
+const iter = require('./fib')();
+let val;
+
+while (arg--) {
+  val = iter.next().value;
+}
+
+console.log(val);
