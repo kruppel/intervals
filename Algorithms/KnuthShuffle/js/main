@@ -6,7 +6,7 @@ const args = process.argv.slice(2);
 let index = args.length - 1;
 
 while (index > 0) {
-  let random = Math.floor(Math.random() * index);
+  let random = Math.round(Math.random() * index);
   let temp = args[index];
 
   args[index] = args[random];
