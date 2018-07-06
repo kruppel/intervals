@@ -44,6 +44,9 @@ class Program
 
   class Go < StaticProgram
     def compile
+      Dir.chdir(path) do
+        `go build main.go`
+      end
     end
   end
 
